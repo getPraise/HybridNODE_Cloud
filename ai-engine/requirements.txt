@@ -12,5 +12,4 @@ groq
 pydantic
 requests
 langchain-huggingface
-sentence-transformers
 websockets
