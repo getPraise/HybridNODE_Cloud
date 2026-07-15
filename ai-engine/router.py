@@ -1,11 +1,12 @@
 import numpy as np 
 import re
-from langchain_huggingface import HuggingFaceEmbeddings
-
+from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
 print("Router Embedding Engine...")
 
-embedding_engine = HuggingFaceEmbeddings(model_name = "sentence-transformers/all-MiniLM-L6-v2")
-
+embedding_engine = HuggingFaceInferenceAPIEmbeddings(
+    api_key=os.getenv("HUGGINGFACEHUB_API_TOKEN"),
+    model_name="sentence-transformers/all-MiniLM-L6-v2"
+)
 COMPLEXITY_ANCHORS = {
     "gemini": [
         "Write code implement algorithm design pattern backend architecture react component function",
