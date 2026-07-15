@@ -13,7 +13,7 @@ connectDB();
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+const FRONTEND_URL = process.env.FRONTEND_URL || "https://hybrid-node-cloud.vercel.app" || "http://localhost:5173";
 
 // --- 1. MIDDLEWARE STACK ---
 app.use(
