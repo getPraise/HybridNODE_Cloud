@@ -51,46 +51,45 @@ def classify_prompt(text: str)-> str:
   
   #else case 
   try:
-        api_key = os.getenv("HUGGINGFACEHUB_API_TOKEN")
-        api_url = "https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2"
-        headers = {"Authorization": f"Bearer {api_key}"}
+      api_key = os.getenv("HUGGINGFACEHUB_API_TOKEN")
+      api_url = "https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2"
+      headers = {"Authorization": f"Bearer {api_key}"}
+      response = requests.post(
+      api_url, 
+      headers=headers, 
+      json={"inputs": clean_text, "options": {"wait_for_model": True}},
+      timeout=10
+      )
+      response.raise_for_status()
+      query_vector = np.array(response.json())
         
-        response = requests.post(
-            api_url, 
-            headers=headers, 
-            json={"inputs": clean_text, "options": {"wait_for_model": True}},
-            timeout=10
-        )
-        response.raise_for_status()
-        query_vector = np.array(response.json())
-        
-    except Exception as e:
-        print(f"⚠️ Embedding API failed: {e}")
-        return "gemini"
-
-    scores = {}
+  except Exception as e:
+      print(f"⚠️ Embedding API failed: {e}")
+      return "gemini"
+      
+      
+  scores = {}
     
     # CRITICAL FIX: Changed CENTROIDS (which was undefined) to COMPLEXITY_ANCHORS
-    for tier, centroid in COMPLEXITY_ANCHORS.items():
-        similarity_score = get_cosine_similarity(query_vector, centroid)
-        scores[tier] = similarity_score
+  for tier, centroid in COMPLEXITY_ANCHORS.items():
+      similarity_score = get_cosine_similarity(query_vector, centroid)
+      scores[tier] = similarity_score
     
-    best_tier = ""
-    highest_score = -1.0
+  best_tier = ""
+  highest_score = -1.0
     
-    for tier, score in scores.items():
-        if score > highest_score:
-            highest_score = score
-            best_tier = tier
+  for tier, score in scores.items():
+      if score > highest_score:
+          highest_score = score
+          best_tier = tier
             
-    print(f"DEBUGGING SCORES: {scores}")
-    print(f"DEBUGGING BEST TIER: {best_tier}")
+  print(f"DEBUGGING SCORES: {scores}") 
+  print(f"DEBUGGING BEST TIER: {best_tier}")
     
     # Override complexity
-    if best_tier == "27b" and highest_score < 0.40 and word_count > 40:
-        return "120b"
+  if best_tier == "27b" and highest_score < 0.40 and word_count > 40:
+      return "120b"
     
-    if best_tier == "120b" and word_count > 120:
-        return "gemini"
-    
-    return best_tier
+  if best_tier == "120b" and word_count > 120:
+      return "gemini"
+  return best_tier
