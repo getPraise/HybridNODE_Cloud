@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+/* 1. ADD THIS LINE: It forces Tailwind to listen to your ThemeContext html class */
+@variant dark (&:is(.dark *));
+
+@theme {
+  --color-app-bg: var(--bg-main);
+  /* ... your existing theme variables ... */
+}
+
+/* ... the rest of your CSS ... */
+@theme {
+  --color-app-bg: var(--bg-main);
+  --color-app-text: var(--text-main);
+  --color-border-subtle: var(--border-color);
+  --color-hybrid-blue: #2563eb;
+  --color-hybrid-slate: #0f172a;
+}
+
+@layer base {
+  :root {
+    --bg-main: #ffffff;
+    --text-main: #0f172a;
+    --border-color: rgba(0, 0, 0, 0.08); /* Slightly higher contrast for enterprise readability */
+    --scrollbar-track: transparent;      /* Cleaner look on modern OS */
+    --scrollbar-thumb: #cbd5e1;          /* Slate 300 */
+    --scrollbar-thumb-hover: #94a3b8;    /* Slate 400 */
+  }
+
+  .dark {
+    --bg-main: #020617;
+    --text-main: #f1f5f9;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: #334155;          /* Slate 700 */
+    --scrollbar-thumb-hover: #475569;    /* Slate 600 */
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden; 
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    @apply antialiased;
+    min-h: 100vh;
+  }
+
+  /* Professional 'Ghost' Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track { 
+    background: var(--scrollbar-track); 
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 100vh;
+  }
+  ::-webkit-scrollbar-thumb:hover { 
+    /* Professional subtle change, rather than bright blue */
+    background: var(--scrollbar-thumb-hover); 
+  }
+}
+
+@layer utilities {
+  /* Dynamic lock applied by App.jsx on the Workspace route */
+  .no-scroll {
+    overflow: hidden !important;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* Grounded enterprise panel */
+  .glass-panel {
+    @apply backdrop-blur-md border border-[var(--border-color)] bg-white/80 dark:bg-slate-900/80 shadow-sm;
+  }
+}

@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+python-dotenv
+python-socketio
+langchain
+langchain-core
+langchain-google-genai
+langchain-groq
+langgraph
+google-generativeai
+groq
+pydantic
+requests
+langchain-huggingface
+sentence-transformers
+websockets
