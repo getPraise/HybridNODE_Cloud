@@ -65,7 +65,7 @@ def classify_prompt(text: str)-> str:
         
   except Exception as e:
       print(f"⚠️ Embedding API failed: {e}")
-      return "gemini"
+      return "120b"
       
       
   scores = {}
