@@ -11,7 +11,5 @@ google-generativeai
 groq
 pydantic
 requests
-langchain-huggingface
 websockets
-langchain-community
 numpy
