@@ -59,7 +59,7 @@ const server = app.listen(PORT, () => {
   console.log(`
     -------------------------------------------------
     🚀 HYBRID-NODE GATEWAY : http://localhost:${PORT}
-    🌐 ALLOWED ORIGIN      : ${FRONTEND_URL}
+    🌐 ALLOWED ORIGIN      : [Multiple Sources Configured]
     📂 DATABASE STATUS     : INITIALIZED
     -------------------------------------------------
   `);
