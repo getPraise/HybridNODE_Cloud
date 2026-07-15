@@ -17,11 +17,21 @@ const PORT = process.env.PORT || 4000;
 // --- 1. MIDDLEWARE STACK ---
 app.use(
   cors({
-    origin: [
-      "https://hybrid-node-cloud.vercel.app", // Your Production URL
-      "http://localhost:5173",                // Your Local URL
-      "http://localhost:3000"                 // Optional: fallback
-    ],
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+
+      // Allow your specific production URL OR any Vercel preview branch
+      if (
+        origin === "http://localhost:5173" ||
+        origin === "https://hybrid-node-cloud.vercel.app" ||
+        origin.endsWith(".vercel.app") // This is the magic line that fixes all preview URLs
+      ) {
+        return callback(null, true);
+      }
+      
+      callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
