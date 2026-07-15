@@ -4,7 +4,7 @@ import "dotenv/config";
 // 1. Create the Transporter with Performance Pooling
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || "smtp-relay.brevo.com",
-  port: 587,
+  port: 2525,
   secure: false, // true for 465, false for other ports
   pool: true, // Professional touch: keeps connection open for faster OTP dispatch
   auth: {
