@@ -13,16 +13,19 @@ connectDB();
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-const FRONTEND_URL = process.env.FRONTEND_URL || "https://hybrid-node-cloud.vercel.app" || "http://localhost:5173";
 
 // --- 1. MIDDLEWARE STACK ---
 app.use(
   cors({
-    origin: FRONTEND_URL,
+    origin: [
+      "https://hybrid-node-cloud.vercel.app", // Your Production URL
+      "http://localhost:5173",                // Your Local URL
+      "http://localhost:3000"                 // Optional: fallback
+    ],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // Added PATCH here!
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-  }),
+  })
 );
 
 app.use(express.json({ limit: "10mb" }));
