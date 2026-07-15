@@ -62,7 +62,7 @@ const Workspace = () => {
     sendMessage,
     isGenerating, // Pass this to UI to disable input
   } = useAgentStream(
-    import.meta.env.VITE_AI_URL || "http://localhost:8000",
+    import.meta.env.VITE_AI_ENGINE_URL || "http://localhost:8000",
     savedTokens,
   );
 
