@@ -75,7 +75,8 @@ def classify_prompt(text: str)-> str:
     if score > highest_score:
       highest_score = score
       best_tier = tier
-
+  print(f"DEBUGGING SCORES: {scores}")
+  print(f"DEBUGGING BEST TIER: {best_tier}")
   # override compexity
   if best_tier == "27b" and highest_score <0.40 and word_count > 40:
     return "120b"
