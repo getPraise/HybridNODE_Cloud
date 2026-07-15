@@ -1,3 +1,4 @@
+import os
 import numpy as np 
 import re
 from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
