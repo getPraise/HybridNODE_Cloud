@@ -71,7 +71,7 @@ const Home = () => {
         </div>
 
         {/* Feature Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-32 max-w-6xl w-full">
+        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-32 max-w-6xl w-full">
           {[
             { icon: <Shield size={18} />, title: "Incognito Mode", desc: "Enable zero-persistence sessions where conversations are held in temporary memory and never synced to the database." },
             { icon: <Zap size={18} />, title: "Cost Efficiency", desc: "Automated routing logic reduces API expenses by prioritizing local inference." },
@@ -89,7 +89,7 @@ const Home = () => {
               </p>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
 
       {/* Footer */}
